@@ -1,6 +1,6 @@
 on:
   pull_request:
-    branches: [ main, dev, feature/githubActions ]
+    branches: [ main, dev ]
 
 permissions:
   contents: read
