@@ -4,7 +4,7 @@ from selenium.webdriver.firefox.webdriver import WebDriver
 from src.system.tracker.abstractTracker import AbstractTracker
 
 
-class TrackerGlobalCainao(AbstractTracker):
+class TrackerGlobalCainiao(AbstractTracker):
 
     def __init__(self, order: str):
         super().__init__(order)
