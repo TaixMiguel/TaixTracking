@@ -7,17 +7,17 @@ from webdriver_manager.firefox import GeckoDriverManager
 
 class AbstractTracker(ABC):
 
-    _order: str
+    _track_order: str
 
     _headDetail: str
     _textDetail: str
     # TODO: cambiarlo a variable Hora
     _timeDetail: str
 
-    def __init__(self, order: str):
-        self._order = order
+    def __init__(self, track_order: str):
+        self._track_order = track_order
 
-    def track_order(self) -> None:
+    def search_track_order(self) -> None:
         options = webdriver.FirefoxOptions()
         options.headless = True
         options.add_argument("window-size=1920x1080")

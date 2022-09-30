@@ -29,6 +29,11 @@ Format of the configuration file:
 }
 ```
 
+### Telegram commands
+If we have the telegram token well configured, it is possible to interact with the application through the messaging 
+app. Here is a list of available commands:
+* `/aliexpress`: allows us to obtain the status of an AliExpress order through its tracking code.
+
 
 <a name="castellano"></a>
 ## <img src="https://cdn-icons-png.flaticon.com/512/323/323365.png" height="15px" /> Castellano
@@ -50,3 +55,8 @@ Formato del fichero de configuración:
   }
 }
 ```
+
+### Comandos de Telegram
+Si tenemos el token de telegram bien configurado, es posible interactuar con la aplicación a través de la aplicación
+de mensajería. Esta es una lista de los comandos disponibles:
+* `/aliexpress`: nos permite obtener el estado de un pedido de AliExpress a través de su código de seguimiento. 
