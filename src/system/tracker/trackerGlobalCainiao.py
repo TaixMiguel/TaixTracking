@@ -6,11 +6,11 @@ from src.system.tracker.abstractTracker import AbstractTracker
 
 class TrackerGlobalCainiao(AbstractTracker):
 
-    def __init__(self, order: str):
-        super().__init__(order)
+    def __init__(self, track_order: str):
+        super().__init__(track_order)
 
     def _search_data(self, driver: WebDriver) -> None:
-        driver.get("https://global.cainiao.com/detail.htm?mailNoList=" + self._order)
+        driver.get("https://global.cainiao.com/detail.htm?mailNoList=" + self._track_order)
         time.sleep(5)
 
         last_detail = driver.find_element(By.CLASS_NAME, "TrackingDetail--firstStep--dSIAnAW")
