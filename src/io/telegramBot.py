@@ -4,7 +4,7 @@ import telegram.error
 from telegram import Update
 from telegram.ext import (Updater, CommandHandler, CallbackContext)
 
-from src.system.persistence.configApp import ConfigApp
+from src.system.configApp import ConfigApp
 from src.system.tracker.trackerGlobalCainiao import TrackerGlobalCainiao
 
 
