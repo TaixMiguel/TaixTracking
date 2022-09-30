@@ -1,6 +1,8 @@
 import json
 import logging
 import os
+
+from telegram.ext import Updater
 from threading import Lock
 
 
@@ -36,5 +38,5 @@ class ConfigApp(metaclass=ConfigAppMeta):
             logging.info('Se detiene la ejecución de la aplicación')
             quit()
 
-    def get_telegram_token(self) -> str:
-        return self.__configData['telegram']['token']
+    def get_telegram_updater(self) -> Updater:
+        return Updater(self.__configData['telegram']['token'], arbitrary_callback_data=True)
