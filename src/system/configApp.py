@@ -40,3 +40,9 @@ class ConfigApp(metaclass=ConfigAppMeta):
 
     def get_telegram_updater(self) -> Updater:
         return Updater(self.__configData['telegram']['token'], arbitrary_callback_data=True)
+
+    def get_database_system(self) -> str:
+        return self.__configData['bbdd']['system']
+
+    def get_database_filepath(self) -> str:
+        return self.__configData['bbdd']['filepath']
