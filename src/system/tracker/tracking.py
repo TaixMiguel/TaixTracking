@@ -1,4 +1,5 @@
 from src.system.persistence.bbdd import get_instance as get_instance_bbdd
+from src.system.tracker.trackingDetail import TrackingDetail, to_tracking_detail
 import logging
 
 
@@ -9,9 +10,9 @@ def to_tracking(rows: list) -> list:
     return trackers
 
 
-def get_instances_by_telegram_user(telegram_user_id: int) -> list:
+def get_active_tracking() -> list:
     database_manager = get_instance_bbdd()
-    rows: list = database_manager.select('strack002', [telegram_user_id])
+    rows: list = database_manager.select('strack002', [])
     database_manager.close()
     return to_tracking(rows)
 
@@ -40,7 +41,7 @@ class Tracking:
         self.__audit_time = row[8]
 
     def update_alias(self, track_alias: str) -> bool:
-        logging.debug(f'Se actualiza el alias del track "{self.__track_type}: {self.__track_code}"')
+        logging.debug(f'Se actualiza el alias del track "{self.to_string()}"')
         database_manager = get_instance_bbdd()
         database_manager.insert('utrack001', [track_alias, self.__id])
         self.__track_alias = track_alias
@@ -48,9 +49,33 @@ class Tracking:
         return True
 
     def update_expiration_date(self, expiration_date: int) -> bool:
-        logging.debug(f'Se actualiza la fecha de vencimiento del track "{self.__track_type}: {self.__track_code}"')
+        logging.debug(f'Se actualiza la fecha de vencimiento del track "{self.to_string()}"')
         database_manager = get_instance_bbdd()
         database_manager.insert('utrack002', [expiration_date, self.__id])
         self.__expiration_date = expiration_date
         database_manager.close()
         return True
+
+    def get_last_detail(self) -> TrackingDetail:
+        database_manager = get_instance_bbdd()
+        rows: list = database_manager.select('strack003', [self.__id])
+        database_manager.close()
+        if not rows:
+            return None
+        return to_tracking_detail(rows)[len(rows)-1]
+
+    def get_track_type(self) -> str:
+        return self.__track_type
+
+    def get_track_code(self) -> str:
+        return self.__track_code
+
+    def create_new_tracking_detail(self, head: str, text: str, time: int) -> None:
+        database_manager = get_instance_bbdd()
+        database_manager.insert('itrack002', [self.__id, head, text, time])
+        database_manager.close()
+
+        # TODO: avisar al usuario del nuevo detalle encontrado
+
+    def to_string(self) -> str:
+        return self.__track_type + ': ' + self.__track_code

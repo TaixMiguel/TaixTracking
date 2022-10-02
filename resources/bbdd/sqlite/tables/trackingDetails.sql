@@ -5,6 +5,6 @@ CREATE TABLE IF NOT EXISTS tracking_details (
 	detail_text TEXT NOT NULL,
 	detail_time TIMESTAMP NOT NULL,
 	audit_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-	UNIQUE(detail_head, detail_text, detail_time),
+	UNIQUE(id_trackings_fk, detail_head, detail_text, detail_time),
 	FOREIGN KEY(id_trackings_fk) REFERENCES trackings(id)
 );

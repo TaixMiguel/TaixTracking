@@ -4,7 +4,7 @@ import telegram.error
 from telegram import Update, ForceReply
 from telegram.ext import (Updater, CommandHandler, CallbackContext)
 
-from src.system import create_user, errors, is_user
+from src.system import create_user, errors, is_user, invoke_daemon
 from src.system.configApp import ConfigApp
 from src.system.tracker.trackerGlobalCainiao import TrackerGlobalCainiao
 from src.system.tracker.trackerGlobalCainiao import TYPE as TYPE_CAINIAO
@@ -42,13 +42,12 @@ def command_aliexpress(update: Update, context: CallbackContext) -> None:
     if not track_order:
         update.message.reply_text('No se ha indicado el código de seguimiento')
 
-    # TODO: controlar error si el usuario ya ha introducido el pedido
     try:
         create_tracking(TYPE_CAINIAO, track_order, __get_user_id(update))
         update.message.reply_text('Es posible que tardes un rato en recibir una respuesta. Por favor, sé paciente.')
     except errors.IntegrityError:
         update.message.reply_text('No se puede dar de alta un tracking ya existente.')
-    # TODO: invocar el demonio si está apagado
+    invoke_daemon()
     # TODO: pedir el alias del pedido
     # TODO: pedir la fecha de vencimiento
 
