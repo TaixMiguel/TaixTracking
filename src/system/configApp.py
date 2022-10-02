@@ -41,9 +41,15 @@ class ConfigApp(metaclass=ConfigAppMeta):
     def get_telegram_updater(self) -> Updater:
         return Updater(self.__configData['telegram']['token'], arbitrary_callback_data=True)
 
-    def is_allow_users(self) -> bool:
+    def is_allow_new_users(self) -> bool:
         try:
-            return self.__configData['application']['allow_users']
+            return self.__configData['application']['users']['allow_new_users']
+        except KeyError:
+            return False
+
+    def is_allow_user(self) -> bool:
+        try:
+            return self.__configData['application']['users']['default_allow']
         except KeyError:
             return False
 

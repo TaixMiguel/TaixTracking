@@ -1,5 +1,6 @@
 import sqlite3
 from sqlite3 import Connection, Cursor, Error
+from src.system import errors
 from src.system.persistence.bbdd.abstractDatabaseManager import read_sql_file
 from src.system.persistence.bbdd.abstractDatabaseManager import AbstractDatabaseManager
 
@@ -37,7 +38,10 @@ class ManagerSQLite(AbstractDatabaseManager):
         return cursor.lastrowid
 
     def _insert(self, script: str, params) -> int:
-        return self.__execute(script, params)
+        try:
+            return self.__execute(script, params)
+        except sqlite3.IntegrityError as error:
+            raise errors.IntegrityError(error)
 
     def _select(self, script: str, params) -> list:
         sql: str = read_sql_file(_PATH_SCRIPTS + script + '.sql')

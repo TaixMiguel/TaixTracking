@@ -24,6 +24,6 @@ def create_user(telegram_id: int, telegram_username: str, telegram_language_code
     logging.debug(f'Se crea el usuario "{telegram_username}"')
     database_manager = get_instance_bbdd()
     database_manager.insert('iuser001', [telegram_id, telegram_username, telegram_language_code,
-                                         ConfigApp().is_allow_users()])
+                                         ConfigApp().is_allow_user()])
     database_manager.close()
     return get_user(telegram_id=telegram_id)

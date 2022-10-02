@@ -27,7 +27,10 @@ Format of the configuration file:
     "token": "xxx"
   },
   "application": {
-    "allow_users": true
+    "users": {
+      "allow_new_users": true,
+      "default_allow": true
+    }
   },
   "bbdd": {
     "system": "sqlite",
@@ -66,7 +69,10 @@ Formato del fichero de configuración:
     "token": "xxx"
   },
   "application": {
-    "allow_users": true
+    "users": {
+      "allow_new_users": true,
+      "default_allow": true
+    }
   },
   "bbdd": {
     "system": "sqlite",
