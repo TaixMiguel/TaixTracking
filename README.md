@@ -25,6 +25,13 @@ Format of the configuration file:
 {
   "telegram": {
     "token": "xxx"
+  },
+  "application": {
+    "allow_users": true
+  },
+  "bbdd": {
+    "system": "sqlite",
+    "filepath": "taixTracking.db"
   }
 }
 ```
@@ -33,6 +40,11 @@ Format of the configuration file:
 If we have the telegram token well configured, it is possible to interact with the application through the messaging 
 app. Here is a list of available commands:
 * `/aliexpress`: allows us to obtain the status of an AliExpress order through its tracking code.
+
+### Database manager
+Currently the only database manager that is supported is SQLite. To configure it is as simple as adding the `bbdd`
+section to the configuration, in the `system` field indicate `sqlite` and in the `filepath` field indicate the path
+where the BBDD file is located (if it does not exist, create it).
 
 
 <a name="castellano"></a>
@@ -52,6 +64,13 @@ Formato del fichero de configuración:
 {
   "telegram": {
     "token": "xxx"
+  },
+  "application": {
+    "allow_users": true
+  },
+  "bbdd": {
+    "system": "sqlite",
+    "filepath": "taixTracking.db"
   }
 }
 ```
@@ -59,4 +78,9 @@ Formato del fichero de configuración:
 ### Comandos de Telegram
 Si tenemos el token de telegram bien configurado, es posible interactuar con la aplicación a través de la aplicación
 de mensajería. Esta es una lista de los comandos disponibles:
-* `/aliexpress`: nos permite obtener el estado de un pedido de AliExpress a través de su código de seguimiento. 
+* `/aliexpress`: nos permite obtener el estado de un pedido de AliExpress a través de su código de seguimiento.
+
+### Gestor de base de datos
+Actualmente el único gestor de base de datos que está soportado es SQLite. Para configurarlo es tan sencillo como 
+añadir a la configuración el apartado `bbdd`, en el campo `system` indicar `sqlite` y en el campo `filepath` indicar
+la ruta donde se encuentra (si no existe lo crea) el fichero de BBDD.
