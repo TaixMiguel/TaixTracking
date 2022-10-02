@@ -11,8 +11,7 @@ class AbstractTracker(ABC):
 
     _headDetail: str
     _textDetail: str
-    # TODO: cambiarlo a variable Hora
-    _timeDetail: str
+    _timeDetail: int
 
     def __init__(self, track_order: str):
         self._track_order = track_order
@@ -37,5 +36,5 @@ class AbstractTracker(ABC):
     def get_text_detail(self) -> str:
         return self._textDetail
 
-    def get_time_detail(self) -> str:
+    def get_time_detail(self) -> int:
         return self._timeDetail
