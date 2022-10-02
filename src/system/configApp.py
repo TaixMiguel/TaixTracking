@@ -41,8 +41,20 @@ class ConfigApp(metaclass=ConfigAppMeta):
     def get_telegram_updater(self) -> Updater:
         return Updater(self.__configData['telegram']['token'], arbitrary_callback_data=True)
 
+    def is_allow_users(self) -> bool:
+        try:
+            return self.__configData['application']['allow_users']
+        except KeyError:
+            return False
+
     def get_database_system(self) -> str:
-        return self.__configData['bbdd']['system']
+        try:
+            return self.__configData['bbdd']['system']
+        except KeyError:
+            return 'sqlite'
 
     def get_database_filepath(self) -> str:
-        return self.__configData['bbdd']['filepath']
+        try:
+            return self.__configData['bbdd']['filepath']
+        except KeyError:
+            return 'taixTracking.db'

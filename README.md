@@ -26,6 +26,9 @@ Format of the configuration file:
   "telegram": {
     "token": "xxx"
   },
+  "application": {
+    "allow_users": true
+  },
   "bbdd": {
     "system": "sqlite",
     "filepath": "taixTracking.db"
@@ -61,6 +64,9 @@ Formato del fichero de configuración:
 {
   "telegram": {
     "token": "xxx"
+  },
+  "application": {
+    "allow_users": true
   },
   "bbdd": {
     "system": "sqlite",
