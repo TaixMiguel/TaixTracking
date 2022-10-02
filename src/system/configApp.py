@@ -22,6 +22,7 @@ class ConfigAppMeta(type):
 class ConfigApp(metaclass=ConfigAppMeta):
 
     __configData: dict = {}
+    __sw_daemon_launch: bool = False
 
     def __init__(self) -> None:
         path_file: str
@@ -52,6 +53,18 @@ class ConfigApp(metaclass=ConfigAppMeta):
             return self.__configData['application']['users']['default_allow']
         except KeyError:
             return False
+
+    def get_interval_time_search_tracking(self) -> int:
+        try:
+            return self.__configData['application']['interval_time_search_tracking']
+        except KeyError:
+            return 60
+
+    def is_daemon_launch(self) -> bool:
+        return self.__sw_daemon_launch
+
+    def set_daemon_launch(self, daemon_launch: bool) -> None:
+        self.__sw_daemon_launch = daemon_launch
 
     def get_database_system(self) -> str:
         try:

@@ -20,7 +20,16 @@ class TrackerGlobalCainiao(AbstractTracker):
         self._headDetail = last_detail.find_element(By.CLASS_NAME, "TrackingDetail--head--20GpNSP").text
         self._textDetail = last_detail.find_element(By.CLASS_NAME, "TrackingDetail--text--3Odqdxz").text
 
+        date_gmt: datetime = None
         time_gmt: str = last_detail.find_element(By.CLASS_NAME, "TrackingDetail--timeInfoWrap--Ad4suAI").text
-        time_gmt = time_gmt + ':00' if len(time_gmt) > 25 else time_gmt[0:24] + '0' + time_gmt[24:25] + ':00'
-        date_gmt: datetime = datetime.datetime.strptime(time_gmt, '%Y-%m-%d %H:%M:%S %Z%z')
+
+        if len(time_gmt) >= 25:
+            if len(time_gmt) == 26:
+                time_gmt = time_gmt + ':00'
+            elif len(time_gmt) == 25:
+                time_gmt = time_gmt[0:24] + '0' + time_gmt[24:25] + ':00'
+            date_gmt = datetime.strptime(time_gmt, '%Y-%m-%d %H:%M:%S %Z%z')
+        else:
+            time_gmt = time_gmt[0:19]
+            date_gmt = datetime.strptime(time_gmt, '%Y-%m-%d %H:%M:%S')
         self._timeDetail = int(date_gmt.timestamp())

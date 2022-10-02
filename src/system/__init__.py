@@ -1,7 +1,14 @@
 import logging
 from src.system.configApp import ConfigApp
+from src.system.daemonWatcher import DaemonWatcher
 from src.system.persistence.bbdd import get_instance as get_instance_bbdd
 from src.system.user import User, to_users
+
+
+def invoke_daemon() -> None:
+    if not ConfigApp().is_daemon_launch():
+        daemon_watcher: DaemonWatcher = DaemonWatcher()
+        daemon_watcher.run()
 
 
 def is_user(telegram_id: int) -> bool:

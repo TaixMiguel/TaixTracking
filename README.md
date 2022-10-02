@@ -30,7 +30,8 @@ Format of the configuration file:
     "users": {
       "allow_new_users": true,
       "default_allow": true
-    }
+    },
+    "interval_time_search_tracking": 60
   },
   "bbdd": {
     "system": "sqlite",
@@ -72,7 +73,8 @@ Formato del fichero de configuración:
     "users": {
       "allow_new_users": true,
       "default_allow": true
-    }
+    },
+    "interval_time_search_tracking": 60
   },
   "bbdd": {
     "system": "sqlite",
