@@ -30,13 +30,12 @@ class TelegramBot:
     def __init__(self):
         try:
             self.__updater = ConfigApp().get_telegram_updater()
-            thread = threading.Thread(target=self.__load_bot, name='DaemonTelegramBot')
-            thread.start()
+            self.__set_commands()
+
+            self.__updater.start_polling()
+            self.__updater.idle()
         except telegram.error.InvalidToken:
             logging.info('No se ha establecido un Token válido para Telegram')
 
-    def __load_bot(self) -> None:
+    def __set_commands(self) -> None:
         self.__updater.dispatcher.add_handler(CommandHandler('aliexpress', command_aliexpress))
-
-        self.__updater.start_polling()
-        self.__updater.idle()
