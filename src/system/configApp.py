@@ -66,6 +66,12 @@ class ConfigApp(metaclass=ConfigAppMeta):
     def set_daemon_launch(self, daemon_launch: bool) -> None:
         self.__sw_daemon_launch = daemon_launch
 
+    def get_date_format(self) -> str:
+        try:
+            return self.__configData['application']['date_format']
+        except KeyError:
+            return '%d/%m/%Y %H:%M:%S'
+
     def get_database_system(self) -> str:
         try:
             return self.__configData['bbdd']['system']

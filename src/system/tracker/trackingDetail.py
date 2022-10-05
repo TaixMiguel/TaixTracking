@@ -1,3 +1,5 @@
+from datetime import datetime
+
 def to_tracking_detail(rows: list) -> list:
     list_tracking_detail: list = []
     for row in rows:
@@ -8,7 +10,7 @@ def to_tracking_detail(rows: list) -> list:
 class TrackingDetail:
 
     __id: int
-    __id_trackings_fk: int
+    __id_tracking_fk: int
     __detail_head: str
     __detail_text: str
     __detail_time: int
@@ -16,7 +18,7 @@ class TrackingDetail:
 
     def __init__(self, row: tuple):
         self.__id = row[0]
-        self.__id_trackings_fk = row[1]
+        self.__id_tracking_fk = row[1]
         self.__detail_head = row[2]
         self.__detail_text = row[3]
         self.__detail_time = row[4]
@@ -30,3 +32,11 @@ class TrackingDetail:
         if detail_time != self.__detail_time:
             return False
         return True
+
+    def msg_to_user(self, format_date: str) -> str:
+        date_time = datetime.fromtimestamp(self.__detail_time)
+        return f'''Actualización del pedido:
+            {self.__detail_head}
+            {self.__detail_text}
+            {date_time.strftime(format_date)}
+            '''

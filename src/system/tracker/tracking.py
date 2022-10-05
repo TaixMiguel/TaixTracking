@@ -22,7 +22,7 @@ class Tracking:
     __id: int
     __track_type: str
     __track_code: str
-    __telegram_user_id: int
+    __user_id: int
     __track_alias: str
     __expiration_date: int
     __last_update: int
@@ -33,12 +33,15 @@ class Tracking:
         self.__id = row[0]
         self.__track_type = row[1]
         self.__track_code = row[2]
-        self.__telegram_user_id = row[3]
+        self.__user_id = row[3]
         self.__track_alias = row[4]
         self.__expiration_date = row[5]
         self.__last_update = row[6]
         self.__creation_time = row[7]
         self.__audit_time = row[8]
+
+    def get_user_id(self) -> int:
+        return self.__user_id
 
     def update_alias(self, track_alias: str) -> bool:
         logging.debug(f'Se actualiza el alias del track "{self.to_string()}"')
@@ -70,12 +73,13 @@ class Tracking:
     def get_track_code(self) -> str:
         return self.__track_code
 
-    def create_new_tracking_detail(self, head: str, text: str, time: int) -> None:
+    def create_new_tracking_detail(self, head: str, text: str, time: int) -> TrackingDetail:
         database_manager = get_instance_bbdd()
         database_manager.insert('itrack002', [self.__id, head, text, time])
         database_manager.close()
 
         # TODO: avisar al usuario del nuevo detalle encontrado
+        return self.get_last_detail()
 
     def to_string(self) -> str:
         return self.__track_type + ': ' + self.__track_code

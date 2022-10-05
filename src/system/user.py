@@ -23,3 +23,12 @@ class User:
         self.__sw_allow = row[4]
         self.__creation_time = row[5]
         self.__audit_time = row[6]
+
+    def get_id(self) -> int:
+        return self.__id
+
+    def get_telegram_id(self) -> int:
+        return self.__telegram_id
+
+    def get_telegram_language(self) -> str:
+        return self.__telegram_language_code
