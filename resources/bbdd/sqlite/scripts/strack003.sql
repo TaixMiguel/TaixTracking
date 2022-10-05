@@ -1,3 +1,3 @@
 SELECT * FROM tracking_details
-    WHERE   id_trackings_fk = ?
+    WHERE   id_tracking_fk = ?
     ORDER BY audit_time
