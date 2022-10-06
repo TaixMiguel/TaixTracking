@@ -1,7 +1,7 @@
 FROM ubuntu:latest
 
 RUN apt-get update
-RUN apt-get install -y python3 pip3
+RUN apt-get install -y python3 python3-pip
 
 WORKDIR /taixTracking
 COPY resources resources
