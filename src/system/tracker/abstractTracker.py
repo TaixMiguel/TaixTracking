@@ -1,8 +1,6 @@
 from abc import ABC, abstractmethod
 from selenium import webdriver
-from selenium.webdriver.firefox.service import Service
-from selenium.webdriver.firefox.webdriver import WebDriver
-from webdriver_manager.firefox import GeckoDriverManager
+from selenium.webdriver.chrome.webdriver import WebDriver
 
 
 class AbstractTracker(ABC):
@@ -17,12 +15,12 @@ class AbstractTracker(ABC):
         self._track_order = track_order
 
     def search_track_order(self) -> None:
-        options = webdriver.FirefoxOptions()
+        options = webdriver.ChromeOptions()
         options.headless = True
-        options.add_argument("window-size=1920x1080")
+        # options.add_argument("window-size=1920x1080")
         options.add_argument('--no-sandbox')
-        options.add_argument('--disable-gpu')
-        driver: WebDriver = webdriver.Firefox(options=options, service=Service(GeckoDriverManager().install()))
+        # options.add_argument('--disable-gpu')
+        driver: WebDriver = webdriver.Chrome(options=options)
         self._search_data(driver=driver)
         driver.quit()
 
