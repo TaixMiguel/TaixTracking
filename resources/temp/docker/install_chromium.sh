@@ -4,6 +4,7 @@ PLATFORM=$1
 # Constants
 VERSION="85.0.4183.83-0ubuntu0.20.04.2"
 ARCH=`echo ${PLATFORM} | cut -d '/' -f 2`
+ARCH=amr64
 URLBASE="http://archive.ubuntu.com/ubuntu/pool/universe/c/chromium-browser"
 
 # Download
