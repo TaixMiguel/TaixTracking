@@ -2,9 +2,9 @@
 PLATFORM=$1
 
 # Constants
-VERSION="96.0.4664.110-0ubuntu0.18.04.1"
+VERSION="85.0.4183.83-0ubuntu0.20.04.2"
 ARCH=`echo ${PLATFORM} | cut -d '/' -f 2`
-URLBASE="https://launchpad.net/~canonical-chromium-builds/+archive/ubuntu/stage/+files"
+URLBASE="http://archive.ubuntu.com/ubuntu/pool/universe/c/chromium-browser"
 
 # Download
 wget ${URLBASE}/chromium-codecs-ffmpeg_${VERSION}_${ARCH}.deb

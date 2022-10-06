@@ -1,11 +1,12 @@
-FROM python:3-slim-bullseye
+FROM ubuntu:latest
 
-ARG TARGETPLATFORM
+RUN apt-get install -y chromium-codecs-ffmpeg
+RUN apt-get install -y chromium-codecs-ffmpeg-extra
+RUN apt-get install -y chromium-browser
+RUN apt-get install -y chromium-chromedriver
+RUN apt-get install -y python3 pip3
 
 WORKDIR /taixTracking
-COPY resources/temp/docker/install_chromium.sh /taixTracking
-RUN bash -e install_chromium.sh ${TARGETPLATFORM}
-RUN rm -rf /taixTracking/install_chromium.sh
 
 COPY requirements.txt requirements.txt
 RUN pip3 install -r requirements.txt
