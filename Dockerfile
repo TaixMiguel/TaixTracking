@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM python:3.9
 
 ARG TARGETPLATFORM
 RUN apt-get install -y python3 pip3
