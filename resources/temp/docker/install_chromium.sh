@@ -13,9 +13,8 @@ URLBASE="http://archive.ubuntu.com/ubuntu/pool/universe/c/chromium-browser"
 #wget ${URLBASE}/chromium-chromedriver_${VERSION}_${ARCH}.deb
 
 # Install
-apt-get update
-apt-get install -y ./chromium-codecs-ffmpeg_${ARCH}.deb
-apt-get install -y. /chromium-codecs-ffmpeg-extra_${ARCH}.deb
-apt-get install -y ./chromium-browser_${ARCH}.deb
-apt-get install -y ./chromium-chromedriver_${ARCH}.deb
+dpkg -i resources/temp/docker/chromium-codecs-ffmpeg_${ARCH}.deb
+dpkg -i resources/temp/docker/chromium-codecs-ffmpeg-extra_${ARCH}.deb
+dpkg -i resources/temp/docker/chromium-browser_${ARCH}.deb
+dpkg -i resources/temp/docker/chromium-chromedriver_${ARCH}.deb
 rm -rf /var/lib/apt/lists/*
