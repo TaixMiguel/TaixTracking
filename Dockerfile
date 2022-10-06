@@ -1,17 +1,16 @@
 FROM ubuntu:latest
 
-RUN apt-get install -y chromium-codecs-ffmpeg
-RUN apt-get install -y chromium-codecs-ffmpeg-extra
-RUN apt-get install -y chromium-browser
-RUN apt-get install -y ./chromium-chromedriver_${ARCH}.deb
+RUN apt-get update
 RUN apt-get install -y python3 pip3
 
 WORKDIR /taixTracking
+COPY resources resources
+RUN bash -e resources/temp/docker/install_chromium.sh ${TARGETPLATFORM}
 
 COPY requirements.txt requirements.txt
 RUN pip3 install -r requirements.txt
 
-COPY resources resources
+# COPY resources resources
 RUN rm -rf /taixTracking/resources/temp
 COPY src src
 COPY run.py run.py
