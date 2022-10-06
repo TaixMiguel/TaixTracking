@@ -1,5 +1,7 @@
 FROM ubuntu:latest
 
+ARG TARGETPLATFORM
+
 RUN apt-get update
 RUN apt-get install -y python3 python3-pip
 
