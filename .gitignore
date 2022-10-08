@@ -3,6 +3,9 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+geckodriver.log
+taixTracking.db
+
 # C extensions
 *.so
 
@@ -14,6 +17,7 @@ dist/
 downloads/
 eggs/
 .eggs/
+.idea/
 lib/
 lib64/
 parts/
