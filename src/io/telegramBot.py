@@ -3,8 +3,9 @@ import telegram.error
 from telegram import Bot, Update, ForceReply
 from telegram.ext import (Updater, CommandHandler, CallbackContext)
 
+from src import constant
 from src.io.abstractCommunication import AbstractCommunication
-from src.system import create_user, errors, is_user, get_user, get_user_telegram
+from src.system import create_user, errors, is_user_telegram, get_user, get_user_telegram
 from src.system.user import User
 from src.system.configApp import ConfigApp
 from src.system.tracker.trackerGlobalCainiao import TYPE as TYPE_CAINIAO
@@ -24,7 +25,7 @@ def __get_user_language_code(update: Update) -> str:
 
 
 def __check_user(update: Update) -> User:
-    if not is_user(__get_user_id(update)):
+    if not is_user_telegram(__get_user_id(update)):
         if ConfigApp().is_allow_new_users():
             return create_user(__get_user_id(update), __get_user_nick(update), __get_user_language_code(update))
         logging.info(f'El usuario de Telegram "{__get_user_nick(update)}" se ha puesto en contacto conmigo')
@@ -41,6 +42,7 @@ def command_aliexpress(update: Update, context: CallbackContext) -> None:
         update.message.reply_text('No se ha indicado el código de seguimiento')
 
     try:
+        # TODO: comprobar si el tracking existe en otro usuario
         create_tracking(TYPE_CAINIAO, track_order, user.get_id())
         update.message.reply_text('Es posible que tardes un rato en recibir una respuesta. Por favor, sé paciente.')
     except errors.IntegrityError:
@@ -67,7 +69,7 @@ class TelegramBot(AbstractCommunication):
     def send_message(self, id_user: int, msg: str) -> None:
         user: User = get_user(id_user)
         if user:
-            id_telegram: int = user.get_telegram_id()
+            id_telegram: int = user.get_value_attribute(constant.AttributeUser.TELEGRAM_USER_ID)
             if id_telegram:
                 self.__updater.bot.send_message(chat_id=id_telegram, text=msg)
 
