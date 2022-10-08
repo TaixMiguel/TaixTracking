@@ -27,8 +27,23 @@ class User:
     def get_id(self) -> int:
         return self.__id
 
+    # TODO: sacar a una tabla de atributos
     def get_telegram_id(self) -> int:
         return self.__telegram_id
 
+    # TODO: sacar a una tabla de atributos
+    def get_telegram_username(self) -> str:
+        return self.__telegram_username
+
+    # TODO: sacar a una tabla de atributos
     def get_telegram_language(self) -> str:
         return self.__telegram_language_code
+
+    def is_allow(self) -> bool:
+        return self.__sw_allow
+
+    def get_creation_time(self) -> int:
+        return self.__creation_time
+
+    def get_audit_time(self) -> int:
+        return self.__audit_time

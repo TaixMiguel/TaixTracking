@@ -1,5 +1,6 @@
 from datetime import datetime
 
+
 def to_tracking_detail(rows: list) -> list:
     list_tracking_detail: list = []
     for row in rows:
@@ -23,6 +24,24 @@ class TrackingDetail:
         self.__detail_text = row[3]
         self.__detail_time = row[4]
         self.__audit_time = row[5]
+
+    def get_id(self) -> int:
+        return self.__id
+
+    def get_id_tracking_fk(self) -> int:
+        return self.__id_tracking_fk
+
+    def get_detail_head(self) -> str:
+        return self.__detail_head
+
+    def get_detail_text(self) -> str:
+        return self.__detail_text
+
+    def get_detail_time(self) -> int:
+        return self.__detail_time
+
+    def get_audit_time(self) -> int:
+        return self.__audit_time
 
     def is_equals(self, detail_head: str, detail_text: str, detail_time: int) -> bool:
         if detail_head != self.__detail_head:

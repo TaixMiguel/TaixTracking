@@ -10,7 +10,7 @@ def to_tracking(rows: list) -> list:
     return trackers
 
 
-def get_active_tracking() -> list:
+def get_actives_tracking() -> list:
     database_manager = get_instance_bbdd()
     rows: list = database_manager.select('strack002', [])
     database_manager.close()
@@ -40,8 +40,33 @@ class Tracking:
         self.__creation_time = row[7]
         self.__audit_time = row[8]
 
+    def get_id(self) -> int:
+        return self.__id
+
+    def get_track_type(self) -> str:
+        return self.__track_type
+
+    def get_track_code(self) -> str:
+        return self.__track_code
+
+    # TODO: sacarlo a otra tabla
     def get_user_id(self) -> int:
         return self.__user_id
+
+    def get_track_alias(self) -> str:
+        return self.__track_alias
+
+    def get_expiration_date(self) -> int:
+        return self.__expiration_date
+
+    def get_last_update(self) -> int:
+        return self.__last_update
+
+    def get_creation_time(self) -> int:
+        return self.__creation_time
+
+    def get_audit_time(self) -> int:
+        return self.__audit_time
 
     def update_alias(self, track_alias: str) -> bool:
         logging.debug(f'Se actualiza el alias del track "{self.to_string()}"')
@@ -66,12 +91,6 @@ class Tracking:
         if not rows:
             return None
         return to_tracking_detail(rows)[len(rows)-1]
-
-    def get_track_type(self) -> str:
-        return self.__track_type
-
-    def get_track_code(self) -> str:
-        return self.__track_code
 
     def create_new_tracking_detail(self, head: str, text: str, time: int) -> TrackingDetail:
         database_manager = get_instance_bbdd()

@@ -2,7 +2,7 @@ from src.io import get_instance_communication
 from src.system.configApp import ConfigApp
 from src.system.tracker import get_instance_tracker
 from src.system.tracker.abstractTracker import AbstractTracker
-from src.system.tracker.tracking import get_active_tracking
+from src.system.tracker.tracking import get_actives_tracking
 from src.system.tracker.trackingDetail import TrackingDetail
 import logging
 import threading
@@ -10,7 +10,7 @@ import time
 
 
 def _update_active_tracking() -> None:
-    list_tracking: list = get_active_tracking()
+    list_tracking: list = get_actives_tracking()
     for tracking in list_tracking:
         try:
             tracker: AbstractTracker = get_instance_tracker(tracking.get_track_type(), tracking.get_track_code())
