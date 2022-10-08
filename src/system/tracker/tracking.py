@@ -138,8 +138,6 @@ class Tracking:
         database_manager = get_instance_bbdd()
         database_manager.insert('itrack002', [self.__id, head, text, time])
         database_manager.close()
-
-        # TODO: avisar al usuario del nuevo detalle encontrado
         return self.get_last_detail()
 
     def to_string(self) -> str:

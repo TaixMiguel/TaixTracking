@@ -5,6 +5,15 @@ from src.system.tracker.trackerGlobalCainiao import TrackerGlobalCainiao
 from src.system.tracker.tracking import Tracking, to_tracking
 
 
+def get_tracking(track_type: str, track_code: str) -> Tracking:
+    database_manager = get_instance_bbdd()
+    rows: list = database_manager.select('strack005', [track_type, track_code])
+    database_manager.close()
+    if rows:
+        return to_tracking(rows)[0]
+    return None
+
+
 def create_tracking(track_type: str, track_code: str, user_id: int) -> Tracking:
     logging.debug(f'Se crea el track "{track_code}" del tipo {track_type}')
     database_manager = get_instance_bbdd()
