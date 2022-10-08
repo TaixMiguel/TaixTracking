@@ -74,7 +74,7 @@ class User:
         return self.__attributes[attribute]
 
     def get_value_attribute(self, attribute: str) -> str:
-        user_attribute: UserAttr = self.get_attribute[attribute]
+        user_attribute: UserAttr = self.get_attribute(attribute)
         if user_attribute:
             return user_attribute.get_value()
         return ''

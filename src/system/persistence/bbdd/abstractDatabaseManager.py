@@ -20,7 +20,7 @@ class AbstractDatabaseManager(ABC):
         pass
 
     def create_application_tables(self) -> None:
-        tables: list = ['trackingDetails', 'trackings', 'users', 'userAttributes']
+        tables: list = ['tracking', 'userTracking', 'trackingDetails', 'users', 'userAttributes']
         self._create_tables(tables)
 
     @abstractmethod

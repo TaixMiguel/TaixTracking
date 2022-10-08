@@ -42,6 +42,7 @@ def command_aliexpress(update: Update, context: CallbackContext) -> None:
         update.message.reply_text('No se ha indicado el código de seguimiento')
 
     try:
+        # TODO: comprobar si el tracking existe en otro usuario
         create_tracking(TYPE_CAINIAO, track_order, user.get_id())
         update.message.reply_text('Es posible que tardes un rato en recibir una respuesta. Por favor, sé paciente.')
     except errors.IntegrityError:

@@ -1,6 +1,4 @@
-UPDATE trackings
-    SET
-        track_alias = ?,
-        audit_time = CURRENT_TIMESTAMP
-    WHERE
-        id = ?
+UPDATE user_tracking
+    SET track_alias = ?
+    WHERE   id_user_fk = ?
+        AND id_tracking_fk = ?
