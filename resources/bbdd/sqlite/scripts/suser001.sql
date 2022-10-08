@@ -1,2 +1,2 @@
 SELECT * FROM users
-    WHERE telegram_id = ?
+    WHERE id = ?
