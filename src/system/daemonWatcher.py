@@ -2,7 +2,7 @@ from src.io import get_instance_communication, AbstractCommunication
 from src.system.configApp import ConfigApp
 from src.system.tracker import get_instance_tracker
 from src.system.tracker.abstractTracker import AbstractTracker
-from src.system.tracker.tracking import get_actives_tracking
+from src.system.tracker.tracking import get_actives_tracking, get_tracking_without_tracking
 from src.system.tracker.trackingDetail import TrackingDetail
 import logging
 import threading
@@ -33,6 +33,17 @@ def _update_active_tracking() -> None:
             logging.error(error)
 
 
+def _remove_tracking_without_tracking() -> None:
+    list_tracking: list = get_tracking_without_tracking(7)
+    for tracking in list_tracking:
+        ids_user: list = tracking.get_ids_user()
+        communication: AbstractCommunication = get_instance_communication()
+        for id_user in ids_user:
+            communication.send_message(id_user, f'Se elimina el tracking {tracking.get_track_alias(id_user)} '
+                                                f'por llevar una semana sin encontrarse')
+        tracking.delete()
+
+
 class DaemonWatcher:
 
     turnOff: bool
@@ -51,9 +62,8 @@ class DaemonWatcher:
 
         while not self.turnOff:
             _update_active_tracking()
-
-            # TODO: avisar de pedidos apunto de vencer
-            # TODO: eliminar pedidos antiguos
+            # TODO: avisar de pedidos a punto de vencer
+            _remove_tracking_without_tracking()
             time.sleep(self.timeSleep)
 
     def turn_off(self) -> None:

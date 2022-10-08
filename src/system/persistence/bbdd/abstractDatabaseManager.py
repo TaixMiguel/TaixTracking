@@ -65,6 +65,19 @@ class AbstractDatabaseManager(ABC):
     def _update(self, script: str, params) -> int:
         pass
 
+    def delete(self, sql: str, params) -> bool:
+        try:
+            self._delete(sql, params)
+            self._commit()
+            return True
+        except Exception as error:
+            self._rollback()
+            logging.exception(error)
+
+    @abstractmethod
+    def _delete(self, script: str, params) -> int:
+        pass
+
     @abstractmethod
     def _commit(self) -> None:
         pass
