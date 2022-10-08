@@ -1,6 +1,7 @@
+from datetime import datetime, timedelta, date
+import logging
 from src.system.persistence.bbdd import get_instance as get_instance_bbdd
 from src.system.tracker.trackingDetail import TrackingDetail, to_tracking_detail
-import logging
 
 
 def to_tracking(rows: list) -> list:
@@ -13,6 +14,14 @@ def to_tracking(rows: list) -> list:
 def get_actives_tracking() -> list:
     database_manager = get_instance_bbdd()
     rows: list = database_manager.select('strack002', [])
+    database_manager.close()
+    return to_tracking(rows)
+
+
+def get_tracking_without_tracking(days: int) -> list:
+    date_time: datetime = datetime.now() + timedelta(days=-days)
+    database_manager = get_instance_bbdd()
+    rows: list = database_manager.select('strack006', [int(date_time.timestamp())])
     database_manager.close()
     return to_tracking(rows)
 
@@ -138,9 +147,15 @@ class Tracking:
         database_manager = get_instance_bbdd()
         database_manager.insert('itrack002', [self.__id, head, text, time])
         database_manager.close()
-
-        # TODO: avisar al usuario del nuevo detalle encontrado
         return self.get_last_detail()
+
+    def delete(self) -> bool:
+        database_manager = get_instance_bbdd()
+        database_manager.delete('dtrack003', [self.__id])
+        database_manager.delete('dtrack002', [self.__id])
+        database_manager.delete('dtrack001', [self.__id])
+        database_manager.close()
+        return True
 
     def to_string(self) -> str:
         return self.__track_type + ': ' + self.__track_code

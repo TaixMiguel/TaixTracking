@@ -8,8 +8,9 @@ from src.io.abstractCommunication import AbstractCommunication
 from src.system import create_user, errors, is_user_telegram, get_user, get_user_telegram
 from src.system.user import User
 from src.system.configApp import ConfigApp
+from src.system.tracker.tracking import Tracking
 from src.system.tracker.trackerGlobalCainiao import TYPE as TYPE_CAINIAO
-from src.system.tracker import create_tracking
+from src.system.tracker import get_tracking, create_tracking, add_user_tracking
 
 
 def __get_user_id(update: Update) -> int:
@@ -35,6 +36,17 @@ def __check_user(update: Update) -> User:
     return get_user_telegram(telegram_id=__get_user_id(update))
 
 
+def __create_tracking(track_type: str, track_code: str, user_id: int) -> None:
+    tracking: Tracking = get_tracking(track_type, track_code)
+    if tracking:
+        add_user_tracking(tracking.get_id(), user_id)
+    else:
+        tracking = create_tracking(track_type, track_code, user_id)
+
+    # TODO: pedir el alias del pedido
+    # TODO: pedir la fecha de vencimiento si está vacía
+
+
 def command_aliexpress(update: Update, context: CallbackContext) -> None:
     user: User = __check_user(update)
     track_order: str = context.args[0]
@@ -42,13 +54,10 @@ def command_aliexpress(update: Update, context: CallbackContext) -> None:
         update.message.reply_text('No se ha indicado el código de seguimiento')
 
     try:
-        # TODO: comprobar si el tracking existe en otro usuario
-        create_tracking(TYPE_CAINIAO, track_order, user.get_id())
+        __create_tracking(TYPE_CAINIAO, track_order, user.get_id())
         update.message.reply_text('Es posible que tardes un rato en recibir una respuesta. Por favor, sé paciente.')
     except errors.IntegrityError:
         update.message.reply_text('No se puede dar de alta un tracking ya existente.')
-    # TODO: pedir el alias del pedido
-    # TODO: pedir la fecha de vencimiento
 
 
 class TelegramBot(AbstractCommunication):

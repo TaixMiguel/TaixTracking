@@ -52,6 +52,9 @@ class ManagerSQLite(AbstractDatabaseManager):
     def _update(self, script: str, params) -> int:
         return self.__execute(script, params)
 
+    def _delete(self, script: str, params) -> int:
+        return self.__execute(script, params)
+
     def _commit(self) -> None:
         self.__connection.commit()
 
